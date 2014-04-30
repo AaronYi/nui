@@ -113,6 +113,9 @@
 
 + (UIColor*)toColor:(NSString*)value
 {
+    if ([value length] == 0) {
+        return nil;
+    }
     // Look at UIColor selectors for a matching selector.
     // Name matches can take the form of 'colorname' (matching selectors like +redColor with 'red').
     SEL selector = NSSelectorFromString([NSString stringWithFormat:@"%@Color", value]);
