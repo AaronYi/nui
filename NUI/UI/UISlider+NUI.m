@@ -22,10 +22,16 @@
     // Styling shouldn't be applied to inherited classes, unless nuiClass is
     // explictly set
     if ([self isMemberOfClass:[UISlider class]] || self.nuiClass) {
-        
+
+        if ([self respondsToSelector:@selector(willApplyNUI)]) {
+            [self willApplyNUI];
+        }
         [self initNUI];
         if (![self.nuiClass isEqualToString:kNUIClassNone]) {
             [NUIRenderer renderSlider:self withClass:self.nuiClass];
+        }
+        if ([self respondsToSelector:@selector(didApplyNUI)]) {
+            [self didApplyNUI];
         }
     }
     self.nuiApplied = YES;

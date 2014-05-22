@@ -21,7 +21,13 @@
 {
     [self initNUI];
     if ([self nuiShouldBeApplied]) {
+        if ([self respondsToSelector:@selector(willApplyNUI)]) {
+            [self willApplyNUI];
+        }
         [NUIRenderer renderTextField:self withClass:self.nuiClass];
+        if ([self respondsToSelector:@selector(didApplyNUI)]) {
+            [self didApplyNUI];
+        }
     }
     self.nuiApplied = YES;
 }

@@ -27,8 +27,14 @@
     {
         [self initNUI];
         if (![self.nuiClass isEqualToString:kNUIClassNone]) {
+            if ([self respondsToSelector:@selector(willApplyNUI)]) {
+                [self willApplyNUI];
+            }
             [NUIRenderer renderLabel:self withClass:self.nuiClass];
             [self transformText];
+            if ([self respondsToSelector:@selector(didApplyNUI)]) {
+                [self didApplyNUI];
+            }
         }
     }
     self.nuiApplied = YES;

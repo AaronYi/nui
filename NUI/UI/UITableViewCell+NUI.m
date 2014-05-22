@@ -21,8 +21,14 @@
 {
     [self initNUI];
     if (![self.nuiClass isEqualToString:kNUIClassNone]) {
+        if ([self respondsToSelector:@selector(willApplyNUI)]) {
+            [self willApplyNUI];
+        }
         [NUIRenderer renderTableViewCell:self withClass:self.nuiClass];
         [NUIRenderer addOrientationDidChangeObserver:self];
+        if ([self respondsToSelector:@selector(didApplyNUI)]) {
+            [self didApplyNUI];
+        }
     }
     self.nuiApplied = YES;
 }

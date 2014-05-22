@@ -41,8 +41,14 @@
         if ((![bypassedClasses containsObject:selfClass] &&
             ![bypassedSuperviewClasses containsObject:superviewClass]) ||
             forceRender) {
+            if ([self respondsToSelector:@selector(willApplyNUI)]) {
+                [self willApplyNUI];
+            }
             [NUIRenderer renderButton:self withClass:self.nuiClass];
             [self transformText];
+            if ([self respondsToSelector:@selector(didApplyNUI)]) {
+                [self didApplyNUI];
+            }
         }
     }
     self.nuiApplied = YES;

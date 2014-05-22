@@ -23,7 +23,13 @@
 {
     [self initNUI];
     if (![self.nuiClass isEqualToString:kNUIClassNone]) {
+        if ([self respondsToSelector:@selector(willApplyNUI)]) {
+            [self willApplyNUI];
+        }
         [NUIRenderer renderTabBarItem:self withClass:self.nuiClass];
+        if ([self respondsToSelector:@selector(didApplyNUI)]) {
+            [self didApplyNUI];
+        }
     }
     self.nuiApplied = YES;
 }

@@ -21,6 +21,9 @@
 {
     [self initNUI];
     if (![self.nuiClass isEqualToString:kNUIClassNone]) {
+        if ([self respondsToSelector:@selector(willApplyNUI)]) {
+            [self willApplyNUI];
+        }
         [NUIRenderer renderNavigationBar:self withClass:self.nuiClass];
         [NUIRenderer addOrientationDidChangeObserver:self];
         for (UINavigationItem *navigationItem in [self items]) {
@@ -30,6 +33,9 @@
             for (UIBarButtonItem *barButtonItem in [navigationItem rightBarButtonItems]) {
                 [barButtonItem applyNUI];
             }
+        }
+        if ([self respondsToSelector:@selector(didApplyNUI)]) {
+            [self didApplyNUI];
         }
     }
     self.nuiApplied = YES;

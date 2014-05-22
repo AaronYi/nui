@@ -21,10 +21,18 @@
 {
     [self initNUI];
     if (![self.nuiClass isEqualToString:kNUIClassNone]) {
+        if ([self respondsToSelector:@selector(willApplyNUI)]) {
+            [self willApplyNUI];
+        }
+
         [NUIRenderer renderToolbar:self withClass:self.nuiClass];
         
         for (UIBarButtonItem *barButtonItem in [self items]) {
             [barButtonItem applyNUI];
+        }
+
+        if ([self respondsToSelector:@selector(didApplyNUI)]) {
+            [self didApplyNUI];
         }
     }
     self.nuiApplied = YES;

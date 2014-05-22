@@ -23,8 +23,14 @@
     // explictly set
     if ([self isMemberOfClass:[UISwitch class]] || self.nuiClass) {
         [self initNUI];
+        if ([self respondsToSelector:@selector(willApplyNUI)]) {
+            [self willApplyNUI];
+        }
         if (![self.nuiClass isEqualToString:kNUIClassNone]) {
             [NUIRenderer renderSwitch:self withClass:self.nuiClass];
+        }
+        if ([self respondsToSelector:@selector(didApplyNUI)]) {
+            [self didApplyNUI];
         }
     }
     self.nuiApplied = YES;

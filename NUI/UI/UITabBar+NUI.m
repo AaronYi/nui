@@ -21,11 +21,17 @@
 {
     [self initNUI];
     if (![self.nuiClass isEqualToString:kNUIClassNone]) {
+        if ([self respondsToSelector:@selector(willApplyNUI)]) {
+            [self willApplyNUI];
+        }
         [NUIRenderer renderTabBar:self withClass:self.nuiClass];
         [NUIRenderer addOrientationDidChangeObserver:self];
         
         for (UITabBarItem *item in self.items) {
             [item applyNUI];
+        }
+        if ([self respondsToSelector:@selector(didApplyNUI)]) {
+            [self didApplyNUI];
         }
     }
     self.nuiApplied = YES;

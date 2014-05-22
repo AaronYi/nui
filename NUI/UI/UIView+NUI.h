@@ -17,4 +17,8 @@
 
 - (void)applyNUI;
 
+- (void)willApplyNUI;
+
+- (void)didApplyNUI;
+
 @end
