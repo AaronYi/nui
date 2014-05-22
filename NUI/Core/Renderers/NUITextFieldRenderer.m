@@ -50,6 +50,12 @@
         [textField setBorderStyle:[NUISettings getBorderStyle:@"border-style" withClass:className]];
     }
 
+    if ([NUISettings hasProperty:@"tint-color" withClass:className]) {
+        if ([textField respondsToSelector:@selector(setTintColor:)]) {
+            [textField setTintColor:[NUISettings getColor:@"tint-color" withClass:className]];
+        }
+    }
+
     [NUIViewRenderer renderSize:textField withClass:className];
     [NUIViewRenderer renderBorder:textField withClass:className];
     [NUIViewRenderer renderShadow:textField withClass:className];
