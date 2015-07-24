@@ -120,7 +120,8 @@
         if ([[UIColor class] respondsToSelector:selector]) {
             // [[UIColor class] performSelector:selector] would be better here, but it causes
             // a warning: "PerformSelector may cause a leak because its selector is unknown"
-            return objc_msgSend([UIColor class], selector);
+            id (*typed_msgSend)(id, SEL) = (void *)objc_msgSend;
+            return typed_msgSend([UIColor class], selector);
         }
     }
     
